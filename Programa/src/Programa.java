@@ -2,6 +2,7 @@
 
 //por defecto se importa el paquete java.javalang
 import java.util.Scanner;//importar un paquete (vienen de java.x javax.x org.x jdk.x o de personalizados) (en este caso importa lo necesario para introducir datos por consola)
+import unpaquete.*;//importando paquete ya creado (en este paquete se explican las clases)
 import javax.swing.*;//paquete para interfaces graficas (casi obsoleto) (* importa todo el paquete)
 
 
@@ -98,5 +99,19 @@ public class Programa {//clase llamada igual que el archivo, esta es la que inic
         int[][] dimensiones2 = {{0,1,2,3}, {4,5,6,7}};//otra forma de declarar arrays de varias dimensiones
         dimensiones[3][6] = 2;//acceder a x posicion dentro de x posicion dentro de...
         
+
+        funcion1();//ejecutando una funcion (como es estatica se puede ejecutar sin instanciar una clase)
+        funcion2(1,5);//con parametros
+        numero1 = funcion3(3, 6);//funcion que devuelve un dato
+    }
+
+    static void funcion1(){//una funcion que ejecuta lineas de codigo
+        System.out.println("hola");
+    }
+    static void funcion2(int num1, int num2){//pueden recibir parametros al llamarse
+        System.out.println(num1+num2);
+    }
+    static int funcion3(int num1, int num2){
+        return num1+num2;//si las funciones no son void devuelven algo, usando return
     }
 }
