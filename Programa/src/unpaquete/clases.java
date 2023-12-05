@@ -5,6 +5,7 @@ package unpaquete;//este es el nombre del paquete, convirtiendo este archivo en 
 class Objeto {//creando una clase que identifica un tipo de variable, solo se puede hacer una clase publica por archivo y tiene que llamarse igual que el archivo (se crea un .class por cada clase utilizada)
     private int edad;//una propiedad privada de la clase (solo se puede modificar desde dentro) (se suelen usar funciones set y get)
     String nombre;//igual pero se puede usar desde fuera
+    protected int otraPropiedad;//esto solo sera accesible desde la clase y subclases
     public void Reportar(){//una funcin que hace la clase, actua sobre sus propiedades como objeto y puede acceder a propiedades privadas
         System.out.println(nombre); System.out.println(edad);
     }
@@ -47,7 +48,7 @@ class ClaseMas{
         tamagno = _tamagno;
     }
 }
-class ClaseMenos extends ClaseMas{//esta clase tendra todas las propiedades y metodos de ClaseMas mas las suyas (la herencia multiple no funciona)
+class ClaseMenos extends ClaseMas{//esta clase tendra todas las propiedades y metodos de ClaseMas mas las suyas (la herencia multiple no funciona) (todas las clases derivan de Object)
     String nombre;//ademas te esto, tambientendria int tamagno
     public void reportar(){//si tiene una funcion que se llama igual que una en la clase padre, se hace caso a la nueva (polimorfismo)
         super.reportar();//usando super se hace referencia a la clase padre, usandolo para llamar a la funcion de la clase padre
@@ -58,6 +59,27 @@ class ClaseMenos extends ClaseMas{//esta clase tendra todas las propiedades y me
         nombre = _nombre;//poniendo tambien las propiedades exclusivas de la clase
     }
 }
+final class Inheredable{//poniendo final class hace que ninguna clase pueda heredar de esta
+    final void irrepetible(){}//por otro lado, poniendo final void hace que no se  pueda sobreescribir esa funcion en clases heredadas (no polimorfismo)
+    public Inheredable(){}
+}
+
+
+abstract class Plantilla{//las clases abstractas solo sirven para que otras clases hereden de estas, sirviendo como plantilla
+    String nombre;
+    public void reportarse(){//esta funcion funcionaria como de normal
+        System.out.println(nombre);
+    }
+    public abstract void reportarseDescripcion();//esta funcion seria obligatorio sobreescribirla en subclases
+}
+class DePlantilla extends Plantilla{
+    public void reportarseDescripcion(){//sobreescribiendo obligatoriamente la funcion abstracta
+        System.out.println(nombre + "asfdasd");
+    }
+    public DePlantilla(String _nombre){
+        nombre = _nombre;
+    }
+}
 
 
 public class clases {//clase principal del paquete (el orden de declaracion de las clases no importa)
@@ -65,7 +87,13 @@ public class clases {//clase principal del paquete (el orden de declaracion de l
         Objeto obj = new Objeto();//declarar una variable para ese objeto
         obj.nombre = "aa";//acceder a las propiedades del objeto
         obj.Reportar();//ejecutar un metodo/funcion del objeto
+
+        ClaseMas objm = new ClaseMas(0);
+        ClaseMenos objmm = (ClaseMenos)objm;//se puede transformar la clase padre en la clase hija con casting (se usan nulls)
+
         OtroObjeto obj2 = new OtroObjeto(3, "asdf");//creando una instancia de un contstructor con parametros
         OtroObjeto obj3 = new OtroObjeto("nombre");//usando el otro constructor
+
+        Plantilla objmmm = new DePlantilla("asdf");//creando un objeto de clase abstarcta desde un new con clase heredada de esta
     }
 }

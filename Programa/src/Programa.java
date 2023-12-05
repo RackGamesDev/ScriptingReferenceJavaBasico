@@ -10,6 +10,7 @@ import java.util.*;
 
 
 public class Programa {//clase llamada igual que el archivo, esta es la que inicia el programa
+    enum Enumerador {ARRIBA, ABAJO, DERECHA, IZQUIERDA};//como strings, pero solo x estados disponibles
     public static void main(String[] args) throws Exception {//funcion main que inicia el programa
         //comentarios
         /*
@@ -40,7 +41,6 @@ public class Programa {//clase llamada igual que el archivo, esta es la que inic
         numero1 = (int)Math.random() * 10;//genera un numero aleatorio entre 0 y x
         numero1 = Integer.parseInt("3");//intenta transformar de string a int (devuelve double)
         
-        
 
         char caracter = 'a';//guarda un caracter
         String texto = "textoo";//en realidad es un array de char, y no es una variable primitiva.    "" devuelve char[]
@@ -57,6 +57,9 @@ public class Programa {//clase llamada igual que el archivo, esta es la que inic
         Scanner entrada = new Scanner(System.in);//crear un escaner para introducir datos por consola (necesita importacion)
         texto = entrada.nextLine();//recibe texto desde la consola, nextInt() recibe un numero, si no se introduce un numero da error, hay una funcion por cada dato primitivo4
         //texto = JOptionPane.showInputDialog("introduce datos");//sale una ventana para introducir texto (javax.swing) (bugueable)
+
+        Enumerador posicion = Enumerador.ABAJO;//usando el enumerador deeclarado afuera de la funcion
+        System.out.println(posicion.name());//devuelve como string el estado del enum
 
 
         if(siono){//if tipico, lo del () debe devolver bool
