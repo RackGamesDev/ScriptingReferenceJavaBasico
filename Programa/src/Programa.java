@@ -99,6 +99,7 @@ public class Programa {//clase llamada igual que el archivo, esta es la que inic
         for(int elemento:matriz){//bucle foreach, usa un array y ejecuta su contenido por cada posicion del array, donde x vale lo de esa posicion
             elemento = 0;//elemento seria matriz[x]
         }
+        Arrays.sort(matriz);//ordena un array dependiendo de su tipo (numeros mayor a menor, alfabeticamente)
         int[][] dimensiones = new int [8][8];//declara un array de mas dimensiones
         int[][] dimensiones2 = {{0,1,2,3}, {4,5,6,7}};//otra forma de declarar arrays de varias dimensiones
         dimensiones[3][6] = 2;//acceder a x posicion dentro de x posicion dentro de...

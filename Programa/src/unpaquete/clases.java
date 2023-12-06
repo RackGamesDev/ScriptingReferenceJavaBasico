@@ -65,6 +65,30 @@ final class Inheredable{//poniendo final class hace que ninguna clase pueda here
 }
 
 
+class ClaseFuera{
+    private class ClaseDentro{//esta clase esta dentro de otra (inner class), seria accesible solo desde su clase de fuera, pues cuenta como propiedad privada
+        public void DecirD(){
+            ClaseFuera obj = new ClaseFuera();//accediendo a la clase de fuera
+            obj.DecirF();
+        }
+    }
+    public void DecirF(){
+        ClaseDentro obj = new ClaseDentro();//usando la innerclass
+        obj.DecirD();//accediendo como de normal, todo esto es solo posible desde aqui
+    }
+    public void Metodo(){
+        class OtraClaseDentro{//tambien se puede hacer una inner class dentro de una funcion, entonces solo se podra usar dentro de esa funcion
+            String nombre;
+            public OtraClaseDentro(String _nombre){
+                nombre = _nombre;
+            }
+        }
+        OtraClaseDentro obj = new OtraClaseDentro("a");
+
+    }
+}
+
+
 abstract class Plantilla{//las clases abstractas solo sirven para que otras clases hereden de estas, sirviendo como plantilla
     String nombre;
     public void reportarse(){//esta funcion funcionaria como de normal
@@ -82,14 +106,16 @@ class DePlantilla extends Plantilla{
 }
 
 
-public class clases {//clase principal del paquete (el orden de declaracion de las clases no importa)
-    public static void inicial(){
+
+public class Clases {//clase principal del paquete (el orden de declaracion de las clases no importa)
+    public static void main(String[] args) throws Exception {
         Objeto obj = new Objeto();//declarar una variable para ese objeto
         obj.nombre = "aa";//acceder a las propiedades del objeto
         obj.Reportar();//ejecutar un metodo/funcion del objeto
+        boolean siono = obj instanceof Objeto;//devuelve true si es instancia de x clase o su clase hereda de esa clase
 
         ClaseMas objm = new ClaseMas(0);
-        ClaseMenos objmm = (ClaseMenos)objm;//se puede transformar la clase padre en la clase hija con casting (se usan nulls)
+        //ClaseMenos objmm = (ClaseMenos)objm;//se puede transformar la clase padre en la clase hija con casting (se usan nulls)
 
         OtroObjeto obj2 = new OtroObjeto(3, "asdf");//creando una instancia de un contstructor con parametros
         OtroObjeto obj3 = new OtroObjeto("nombre");//usando el otro constructor
