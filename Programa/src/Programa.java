@@ -4,6 +4,8 @@
 import java.util.Scanner;//importar un paquete (vienen de java.x javax.x org.x jdk.x o de personalizados) (en este caso importa lo necesario para introducir datos por consola)
 import unpaquete.*;//importando paquete ya creado (en este paquete se explican las clases)
 import javax.swing.*;//paquete para interfaces graficas (casi obsoleto) (* importa todo el paquete)
+
+import java.io.IOError;
 import java.util.*;
 
 
@@ -89,6 +91,13 @@ public class Programa {//clase llamada igual que el archivo, esta es la que inic
         }while(numero1<10);
         for(int i=0;i<10;i++){//bucle for: sentencia inicial ; condicion que se debe cumplir para la repeticion ; sentencia que se ejecuta al terminar
 
+        }
+
+        try{
+            //codigo peligroso
+        }
+        catch(IOError e){//si el codigo del try da error llega a esta parte y sigue con el programa, e hace referencia a la variable con el error
+            System.out.println("error " + e.getMessage());
         }
 
 

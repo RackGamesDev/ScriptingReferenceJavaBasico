@@ -1,6 +1,8 @@
 import java.awt.*;
 import javax.swing.*;//libreria con las cosas de la interfaz, tambien usa java.awt
-
+import java.awt.geom.*;//para figuras con Java2D
+import javax.imageio.*;//para imagenes
+import java.io.*;//para archivos, necesario para las imagenes
 
 class UnaVentana extends JFrame{//cada ventana debe alojarse en una clase, que herede de JFrame
     public UnaVentana(){//en el constructor se ponen todas las propiedades de la ventana
@@ -17,8 +19,49 @@ class UnaVentana extends JFrame{//cada ventana debe alojarse en una clase, que h
 
         Image icono = pantalla.getImage("media/icono.png");//guardar una imagen desde ruta relativa (desde fuera de la carpeta src)
         setIconImage(icono);//establecerlo como icono de ventana
+
+
+        Lamina miLamina = new Lamina();//instanciar un componente en una ventana (en este caso poniendo el JPanel en el JFrame)
+        add(miLamina);
+        miLamina.setBackground(Color.white);//establece el color de fondo con la clase Color
+        miLamina.setForeground(Color.black);//establece el color principal
+
     }
 }
+
+class Lamina extends JPanel{//es un panel que puede servir para pintar componentes dentro y organizar layout
+    public void paintComponent(Graphics g){//aqui dentro se ponen las cosas a dibujar (esto esta obsoleto, ahora se usa mas el paqueta Java2D)
+        super.paintComponent(g);
+        /*g.drawString("aaa", 10, 10);//pintar texto simple (texto, x, y)
+        g.drawRect(20, 20, 50, 50);//dibuja un cuadrado (posx, posy, sizx, sizy)
+        g.drawLine(20, 20, 30, 30);//dibuja una linea (startx, starty, endx, endy)
+        g.drawArc(50, 50, 70, 70, 120, 150);//como la linea pero curva (linea, angulo inicial, angulo final)*/
+        Graphics2D g2 = (Graphics2D) g;//para usar Java2D (lo anterior esta obsoleto)
+        Rectangle2D rectangulo = new Rectangle2D.Double(20, 20, 50, 50);//similar a lo anterior pero los dibujos se almacenan en variables
+        g2.draw(rectangulo);//agregar la forma al panel
+        Ellipse2D elipse = new Ellipse2D.Double(20, 20, 50, 50);//hay muchas formas disponibles
+        elipse.setFrame(rectangulo);//normalmente se pueden copiar los transforms asi, el elipse tendria las mismas dimensiones que el rectangulo
+        g2.draw(elipse);
+        double centroY = elipse.getCenterY();//recibiendo propiedades de las formas
+        g2.draw(new Line2D.Double(20,20,50,50));//se puede instanciar directamente en draw()
+        Ellipse2D circulo = new Ellipse2D.Double();
+        circulo.setFrameFromCenter(10, centroY, 20, centroY + 10);//lo mismo pero poniendolo desde el centro
+        g2.setPaint(Color.red);//pone un color para pintar las siguientes formas (de la clase color, new Color(r,g,b) para color especifico)
+        g2.fill(circulo);//igual que draw, pero el interior se pinta con el color seleccionado con setPaint()
+        String[] fuentes = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();//todas las fuentes disponibles en el sistema
+        Font fuente = new Font("Arial", Font.BOLD, 26);//guarda una fuente apartir de un nombre (debe estar instalada)
+        g2.setFont(fuente);//selecciona esa fuente
+        g2.drawString("fuente", 60, 60);
+
+        try{imagen = ImageIO.read(new File("media/icono.png"));}//pone el contenido de la imagen en la variable
+        catch(IOException e){System.out.println("error");}
+        g.drawImage(imagen, 80, 0, null);//pintar la imagen
+        System.out.println(imagen.getHeight(this));//altura de la imagen, getWidth para ancho
+        g.copyArea(80, 0, 64, 64, 40, 0);//copiar pixeles (seleccionx, selecciony, tamagnoselx, tamagnosely, distanciax, distanciay)
+    }
+    private Image imagen;//variable con la imagen a mostrar
+}
+
 
 public class App {
     public static void main(String[] args) throws Exception {
