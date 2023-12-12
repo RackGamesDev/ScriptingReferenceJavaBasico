@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;//libreria con las cosas de la interfaz, tambien usa java.awt
+import java.awt.event.*;//para los eventos de componentes
 import java.awt.geom.*;//para figuras con Java2D
 import javax.imageio.*;//para imagenes
 import java.io.*;//para archivos, necesario para las imagenes
@@ -21,15 +22,17 @@ class UnaVentana extends JFrame{//cada ventana debe alojarse en una clase, que h
         setIconImage(icono);//establecerlo como icono de ventana
 
 
-        Lamina miLamina = new Lamina();//instanciar un componente en una ventana (en este caso poniendo el JPanel en el JFrame)
-        add(miLamina);
+        LaminaDibujo miLamina = new LaminaDibujo();//instanciar un componente en una ventana (en este caso poniendo el JPanel en el JFrame)
+        //add(miLamina);
         miLamina.setBackground(Color.white);//establece el color de fondo con la clase Color
         miLamina.setForeground(Color.black);//establece el color principal
 
+        LaminaEventos lamina2 = new LaminaEventos(); add(lamina2);
+        MVentana oyenteVentana = new MVentana();  addWindowListener(oyenteVentana);//usando el listener para eventos de la ventana (hecho mas abajo)
     }
 }
 
-class Lamina extends JPanel{//es un panel que puede servir para pintar componentes dentro y organizar layout
+class LaminaDibujo extends JPanel{//es un panel que puede servir para pintar componentes dentro y organizar layout
     public void paintComponent(Graphics g){//aqui dentro se ponen las cosas a dibujar (esto esta obsoleto, ahora se usa mas el paqueta Java2D)
         super.paintComponent(g);
         /*g.drawString("aaa", 10, 10);//pintar texto simple (texto, x, y)
@@ -62,12 +65,32 @@ class Lamina extends JPanel{//es un panel que puede servir para pintar component
     private Image imagen;//variable con la imagen a mostrar
 }
 
+class LaminaEventos extends JPanel implements ActionListener{//implementa lo necesario para que escuche eventos (no es necesario que el ActionListener y el JPanel sean la misma clase, se puede separar)
+    JButton boton = new JButton("clica");//un boton que hace eventos
+    JButton boton2 = new JButton("clica2");
+
+    public LaminaEventos(){
+        add(boton);
+        boton.addActionListener(this);//especificando que hace eventos, diciendo this hara la funcion actionPerformed de esta clase que implementa ActionListener (recibe un objeto que implemente AtionListener)
+        add(boton2);boton2.addActionListener(this);
+    }
+    public void actionPerformed(ActionEvent e){//funcion que se ejecuta al hacer un evento sobre esta clase
+        if(e.getSource()==boton){//comprobar de donde vino el evento
+            setBackground(Color.black);
+        }
+    }
+}
+class MVentana implements WindowListener{//clase listener con lo que puede escuchar una ventana
+    public void windowActivated(WindowEvent e){System.out.println("ventana activada");}//cada evento que puede hacer una ventana
+    public void windowClosed(WindowEvent e){} public void windowClosing(WindowEvent e){}public void windowDeactivated(WindowEvent e){}public void windowDeiconified(WindowEvent e){}public void windowIconified(WindowEvent e){}public void windowOpened(WindowEvent e){}
+}
+
 
 public class App {
     public static void main(String[] args) throws Exception {
         UnaVentana ventana = new UnaVentana();//abrir una ventana ya especificada en una clase
         ventana.setVisible(true);//hacerla visible (esto se puede poner en el constructor)
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//especifica que hacer al cerrar la ventana, en este caso cierra el programa (ventana principal) (HIDE_ON_CLOSE para ventanas secundarias) (esto se puede poner en el constructor)
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//especifica que hacer al cerrar la ventana, en este caso cierra el programa (ventana principal) (HIDE_ON_CLOSE/DISPOSE_ON_CLOSE para ventanas secundarias) (esto se puede poner en el constructor)
 
     }
 }
