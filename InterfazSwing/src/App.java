@@ -28,7 +28,8 @@ class UnaVentana extends JFrame{//cada ventana debe alojarse en una clase, que h
         miLamina.setForeground(Color.black);//establece el color principal
 
         LaminaEventos lamina2 = new LaminaEventos(); add(lamina2);
-        MVentana oyenteVentana = new MVentana();  addWindowListener(oyenteVentana);//usando el listener para eventos de la ventana (hecho mas abajo)
+        addWindowListener(new MVentana());//usando el listener para eventos de la ventana (hecho mas abajo)
+        addWindowStateListener(new MVentanaEstado());//activando el listener de estados de ventana alternativo (hecho mas abajo)
     }
 }
 
@@ -80,9 +81,14 @@ class LaminaEventos extends JPanel implements ActionListener{//implementa lo nec
         }
     }
 }
-class MVentana implements WindowListener{//clase listener con lo que puede escuchar una ventana
-    public void windowActivated(WindowEvent e){System.out.println("ventana activada");}//cada evento que puede hacer una ventana
+class MVentana extends WindowAdapter{//clase listener con lo que puede escuchar una ventana (es una clase adaptadora)
+    public void windowActivated(WindowEvent e){System.out.println("ventana activada");}//cada evento que puede hacer una ventana, no hace falta ponerlos todos
     public void windowClosed(WindowEvent e){} public void windowClosing(WindowEvent e){}public void windowDeactivated(WindowEvent e){}public void windowDeiconified(WindowEvent e){}public void windowIconified(WindowEvent e){}public void windowOpened(WindowEvent e){}
+}
+class MVentanaEstado implements WindowStateListener{//otra forma para ver los cambios de estado de ventana (alternativa a la de arriba)
+    public void windowStateChanged(WindowEvent e){//cada vez que cambie algo
+        System.out.println("ventana cambia de estado" + e.getOldState() + "  " + e.getNewState());//devuelven un numero dependiendo del estado de la ventana antes y despues
+    }
 }
 
 
