@@ -30,6 +30,10 @@ class UnaVentana extends JFrame{//cada ventana debe alojarse en una clase, que h
         LaminaEventos lamina2 = new LaminaEventos(); add(lamina2);
         addWindowListener(new MVentana());//usando el listener para eventos de la ventana (hecho mas abajo)
         addWindowStateListener(new MVentanaEstado());//activando el listener de estados de ventana alternativo (hecho mas abajo)
+
+        addKeyListener(new EventoTeclado());//usar el listener de eventos de teclado para este componente (hecho mas abajo)
+        addMouseListener(new EventoRaton());//usar el listener de eventos de raton para este componente (hecho mas abajo)
+        addMouseMotionListener(new EventoMovimientoRaton());//lo mismo pero para el motion (hecho mas abajo)
     }
 }
 
@@ -69,15 +73,32 @@ class LaminaDibujo extends JPanel{//es un panel que puede servir para pintar com
 class LaminaEventos extends JPanel implements ActionListener{//implementa lo necesario para que escuche eventos (no es necesario que el ActionListener y el JPanel sean la misma clase, se puede separar)
     JButton boton = new JButton("clica");//un boton que hace eventos
     JButton boton2 = new JButton("clica2");
+    JTextField cuadroTexto = new JTextField();//cuadro para escribir texto
 
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        setLayout(null);//en caso de que sea necesario, desactivar que los elementos se coloquen automaticamente
+        cuadroTexto.setBounds(10,40,150,20);
+    }
     public LaminaEventos(){
         add(boton);
         boton.addActionListener(this);//especificando que hace eventos, diciendo this hara la funcion actionPerformed de esta clase que implementa ActionListener (recibe un objeto que implemente AtionListener)
         add(boton2);boton2.addActionListener(this);
+        add(cuadroTexto); cuadroTexto.addFocusListener(new EventoFoco());//aplicanto el listener de foco
     }
     public void actionPerformed(ActionEvent e){//funcion que se ejecuta al hacer un evento sobre esta clase
         if(e.getSource()==boton){//comprobar de donde vino el evento
             setBackground(Color.black);
+        }
+    }
+    private class EventoFoco implements FocusListener{//para escuchar el foco sobre elementos (tab o click) (es una clase interna para que pueda acceder a las propiedades de aqui)
+        public void focusGained(FocusEvent e){//tiene el foco
+            //System.out.println("seleccionado");
+        }
+        public void focusLost(FocusEvent e){//pierde el foco
+            if(e.getSource() == cuadroTexto){//devuelve el elemento que hizo el evento
+                //System.out.println("deseleccionado " + cuadroTexto.getText());
+            }  
         }
     }
 }
@@ -87,9 +108,62 @@ class MVentana extends WindowAdapter{//clase listener con lo que puede escuchar 
 }
 class MVentanaEstado implements WindowStateListener{//otra forma para ver los cambios de estado de ventana (alternativa a la de arriba)
     public void windowStateChanged(WindowEvent e){//cada vez que cambie algo
-        System.out.println("ventana cambia de estado" + e.getOldState() + "  " + e.getNewState());//devuelven un numero dependiendo del estado de la ventana antes y despues
+        //System.out.println("ventana cambia de estado" + e.getOldState() + "  " + e.getNewState());//devuelven un numero dependiendo del estado de la ventana antes y despues
     }
 }
+
+class EventoTeclado implements KeyListener{//para escuchar los eventos de teclado (es necesario que el JPanel con este listener este vacio, se recomienda hacer uno aparte) (se puede hacer extends KeyAdapter para no tener que sobreescribir todos los metodos)
+    public void keyPressed(KeyEvent e){
+        //System.out.println("se presiono la tecla con el codigo " + e.getKeyCode());//cada tecla con su codigo
+    }
+    public void keyReleased(KeyEvent e){
+        //System.out.println("se solto la tecla con el codigo " + e.getKeyCode());
+    }
+    public void keyTyped(KeyEvent e){
+        //System.out.println("se uso la tecla con el codigo " + e.getKeyCode() + " que es la letra " + e.getKeyChar());//getKeyChar devuelve la letra de la tecla en caso de que tenga
+    }
+}
+class EventoRaton implements MouseListener{//para escuchar los eventos de raton (se puede hacer extends MouseAdapter para no tener que sobreescribir todos los metodos)
+    public void mouseClicked(MouseEvent e){
+        //System.out.println("se presiono el raton sobre el elemento");
+        //System.out.println("x" + e.getX() + " y" + e.getY());//coordenadas del raton en el momento (relativo al componente/panel)
+        //System.out.println(e.getClickCount());//cuantos clicks se hacen en x tiempo (tiempo diefinido por el sistema operativo)
+    }
+    public void mouseEntered(MouseEvent e){
+        //System.out.println("el raton entro al elemento");
+    }
+    public void mouseExited(MouseEvent e){
+        //System.out.println("el raton salio del elemento");
+    }
+    public void mousePressed(MouseEvent e){
+        //System.out.println("click presionado");
+        //System.out.println("el boton del raton es el " + e.getModifiersEx());//devuelve que boton del raton se presiono con un numero (mirar docs para ver cual es cual)
+    }
+    public void mouseReleased(MouseEvent e){
+        //System.out.println("click soltado");
+    }
+}
+class EventoMovimientoRaton implements MouseMotionListener{//similar a MouseListener pero para movimiento
+    public void mouseDragged(MouseEvent e){//mover el raton con el click presionado
+        //System.out.println("arrastrando x" + e.getX() + " y" + e.getY());
+    }
+    public void mouseMoved(MouseEvent e){//mover el raton
+        //System.out.println("x" + e.getX() + " y" + e.getY());
+    }  
+}
+class OtraVentana extends JFrame implements WindowFocusListener{//cuando una ventana implementa esto escuchara eventos de focus de ventana
+    public void windowGainedFocus(WindowEvent e){
+        //System.out.println("ventana en primer plano");
+    }
+    public void windowLostFocus(WindowEvent e){
+        //System.out.println("ventana en segundo plano");
+    }
+    public OtraVentana(){
+        setBounds(300,100,200,200);
+        addWindowFocusListener(this);//aplicar este WindowFocusListener (la propia clase del JFrame ya lo implementa)
+    }
+}
+
 
 
 public class App {
@@ -97,6 +171,6 @@ public class App {
         UnaVentana ventana = new UnaVentana();//abrir una ventana ya especificada en una clase
         ventana.setVisible(true);//hacerla visible (esto se puede poner en el constructor)
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//especifica que hacer al cerrar la ventana, en este caso cierra el programa (ventana principal) (HIDE_ON_CLOSE/DISPOSE_ON_CLOSE para ventanas secundarias) (esto se puede poner en el constructor)
-
+        //OtraVentana ventana2 = new OtraVentana(); ventana2.setVisible(true);
     }
 }
