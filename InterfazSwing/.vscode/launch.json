@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Layouts",
+            "request": "launch",
+            "mainClass": "Layouts",
+            "projectName": "InterfazSwing_4394e077"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
