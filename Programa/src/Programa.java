@@ -52,6 +52,7 @@ public class Programa {//clase llamada igual que el archivo, esta es la que inic
         siono = texto.equalsIgnoreCase("Texto");//igual pero no casesensitive
         siono = texto == "a";//esto tambien funciona, pero equals viene con la clase
         texto = texto + "aasdf";//concatenar strings
+        texto = texto.trim();//elimina los espacios al final y al principio
         texto = texto.substring(1, 3);//devuelve los caracteres entre las posiciones x1 y x2
         texto = Integer.toString(3);//cambia de numeros a string
         System.out.printf("%1.4f", decimalPreciso);//imprime decimales precisos con formatos (x.xxxx en este caso)
