@@ -16,6 +16,7 @@ class LaminaComponentes extends JPanel{
         char [] caracteres = contrasegna.getPassword();//en lugar de getText, lo devuelve como array de char y no como string
         JTextArea areaTexto = new JTextArea(10,2);//igual que jtextfield pero multilinea (letras, columnas)
         areaTexto.setLineWrap(false);//quiere decir que si el texto no cabe se pondra abajo (si no, el ancho se autoagrandara)
+        areaTexto.append("asdfasfd");//agrega texto al final (concatenacion simple)
 
         JScrollPane laminaBarras = new JScrollPane(areaTexto);//poniendo barras de scroll a un componente
         add(laminaBarras);//en lugar de poner el componente se pone solo la lamina

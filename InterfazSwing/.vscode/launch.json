@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "EventoCompacto",
+            "request": "launch",
+            "mainClass": "EventoCompacto",
+            "projectName": "InterfazSwing_4394e077"
+        },
+        {
+            "type": "java",
             "name": "Componentes",
             "request": "launch",
             "mainClass": "Componentes",

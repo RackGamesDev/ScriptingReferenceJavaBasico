@@ -82,6 +82,7 @@ public class Programa {//clase llamada igual que el archivo, esta es la que inic
 
                 break;
         }
+        texto = siono ? "es true" : "es false";//el operador ternario, dependiendo si la variable es true o false asigna un valor u otro
 
         while (numero1 < 10) {//ejecuta el codigo una y otra vez mientras x sea true
             numero1++;//se suele usar un contador para salir
