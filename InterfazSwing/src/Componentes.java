@@ -1,3 +1,6 @@
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;//para cuadros de texto y Document
@@ -23,6 +26,31 @@ class LaminaComponentes extends JPanel{
 
         JButton boton = new JButton("click"); add(boton);//un boton (eventos ya explicados en App.java)
         JLabel label = new JLabel("textooo"); add(label);//un texto sin mas
+        label.setFont(new Font("Arial", Font.BOLD, 26));//al igual que con cualquier otro componente, se le peuden aplicar fuentes
+
+        JCheckBox check = new JCheckBox("si o no"); add(check);//un checkbox simple
+        check.addActionListener(new EscuchaComponente());//funciona parecido a un boton
+        boolean siono = check.isSelected();//devuelve si esta checkeado o no, setSelected() para cambiarlo
+
+        ButtonGroup grupoRadio = new ButtonGroup();//agrupador para radio buttons
+        JRadioButton radio1 = new JRadioButton("opcion1", false);//los radio buttons son checkbox pero solo puede haber uno activo en su grupo (texto, activado)
+        JRadioButton radio2 = new JRadioButton("opcion2", true);
+        grupoRadio.add(radio1); grupoRadio.add(radio2);//agregar los radios al grupo
+        radio1.addActionListener(new EscuchaComponente()); radio1.addActionListener(new EscuchaComponente());//los eventos van igual que con los checkbox
+        add(radio1); add(radio2);//simplemente se ponen en la lamina
+        siono = radio1.isSelected();//devuelve si esta checkeado o no, setSelected() para cambiarlo
+
+        JComboBox comboBox = new JComboBox(); add(comboBox);//un cuadro para elegir una de varias opciones
+        comboBox.addItem("opcion1"); comboBox.addItem("opcion2"); comboBox.addItem("opcion3");//agregar opciones
+        comboBox.setEditable(true);//si es editable, se puede escribir en el como un textbox
+        comboBox.addActionListener(new EscuchaComponente());
+        txt = (String)comboBox.getSelectedItem();//devuelve como string el texto aplicado
+        txt = (String)comboBox.getItemAt(1);//devuelve como string el texto de x item
+
+        JSlider slider = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 50); add(slider);//barra para elegir un numero (direccion, minimo, maximo, por defecto)
+        slider.setMajorTickSpacing(25); slider.setMinorTickSpacing(5); slider.setPaintTicks(true);//cada cuanto salen las lineas identificador
+        slider.setPaintLabels(true);//activar numeros en las lineas grandes
+        slider.setSnapToTicks(true);//agrega imanes a los numeros grandes
     }
     private class EscuchaTexto implements DocumentListener{//clase de escucha de eventos preparada para cuadros de texto
         public void insertUpdate(DocumentEvent e){//cuando se inserta texto
@@ -31,6 +59,12 @@ class LaminaComponentes extends JPanel{
         }
         public void changedUpdate(DocumentEvent e){//cuando cambia el contenido
         }
+    }
+    private class EscuchaComponente implements ActionListener{
+        public void actionPerformed(ActionEvent e) {//evento para cualquier accion de cambio de estado/activacion de componente
+            System.out.println("se ha cambiado el estado o se ha accionado");
+        }
+
     }
 }
 

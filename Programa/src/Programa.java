@@ -1,12 +1,11 @@
 //el programa debe tener un archivo .java inicial con una clase llamada igual que el archivo, se compila con "javac archivo.java" y se ejecuta con "java archivo.class"
 
 //por defecto se importa el paquete java.javalang
-import java.util.Scanner;//importar un paquete (vienen de java.x javax.x org.x jdk.x o de personalizados) (en este caso importa lo necesario para introducir datos por consola)
+import java.util.*;//importar un paquete (vienen de java.x javax.x org.x jdk.x o de personalizados) (en este caso importa lo necesario para introducir datos por consola)
 import unpaquete.*;//importando paquete ya creado (en este paquete se explican las clases)
 import javax.swing.*;//paquete para interfaces graficas (casi obsoleto) (* importa todo el paquete)
 
 import java.io.IOError;
-import java.util.*;
 
 
 
@@ -113,8 +112,7 @@ public class Programa {//clase llamada igual que el archivo, esta es la que inic
         Arrays.sort(matriz);//ordena un array dependiendo de su tipo (numeros mayor a menor, alfabeticamente)
         int[][] dimensiones = new int [8][8];//declara un array de mas dimensiones
         int[][] dimensiones2 = {{0,1,2,3}, {4,5,6,7}};//otra forma de declarar arrays de varias dimensiones
-        dimensiones[3][6] = 2;//acceder a x posicion dentro de x posicion dentro de...
-        
+        dimensiones[3][6] = 2;//acceder a x posicion dentro de x posicion dentro de... 
 
         funcion1();//ejecutando una funcion (como es estatica se puede ejecutar sin instanciar una clase)
         funcion2(1,5);//con parametros
