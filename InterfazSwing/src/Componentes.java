@@ -1,10 +1,23 @@
-import java.awt.Button;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;//para cuadros de texto y Document
 
+class LaminaMenu extends JPanel{
+    public LaminaMenu(){
+        JMenuBar barraSuperior = new JMenuBar(); add(barraSuperior);//soporte para la barra de menu superior (se debe agregar antes que el resto de componentes para que aparezca arriba)
+        JMenu archivoM = new JMenu("archivo"); JMenu editarM = new JMenu("editar");//cada menu
+        barraSuperior.add(archivoM); barraSuperior.add(editarM);//agregando los menus a la barra
+        JMenuItem guardarMI = new JMenuItem("guardar"); JMenuItem abrirMI = new JMenuItem("abrir"); JMenuItem borrarMI = new JMenuItem("borrar"); JMenuItem agregarMI = new JMenuItem("agregar");//cada opcion de los menus
+        archivoM.add(guardarMI); archivoM.add(abrirMI); editarM.add(borrarMI); editarM.add(agregarMI);//agregar las opciones a los menus
+        JMenuItem subopcion1 = new JMenuItem("sub1"); JMenuItem subopcion2 = new JMenuItem("sub2"); JMenu subopciones = new JMenu();
+        subopciones.add(subopcion1); subopciones.add(subopcion2); agregarMI.add(subopciones);//agregar subopciones a opciones normales
+        archivoM.addSeparator();//pone un separador
+    }
+}
 class LaminaComponentes extends JPanel{
     public LaminaComponentes(){
         JTextField texto = new JTextField("texto por defecto", 10);//sitio para escribir (texto por defecto, anchura)
@@ -51,6 +64,15 @@ class LaminaComponentes extends JPanel{
         slider.setMajorTickSpacing(25); slider.setMinorTickSpacing(5); slider.setPaintTicks(true);//cada cuanto salen las lineas identificador
         slider.setPaintLabels(true);//activar numeros en las lineas grandes
         slider.setSnapToTicks(true);//agrega imanes a los numeros grandes
+        slider.addChangeListener(new EscuchaSlider());//aplicar el ChangeListener
+        int numero = slider.getValue();//devuelve el numero puesto, setValue() para cambiarlo
+
+        JSpinner spinner = new JSpinner();//un textbox para numeros con botones de subir y bajar
+        spinner.setPreferredSize(new Dimension(50, 20));//para cambiar el tamagno
+        add(spinner);
+        JSpinner spinnerFecha = new JSpinner(new SpinnerDateModel()); add(spinnerFecha);//igual pero para fechas (dia/mes/agno hora:minuto  actual)
+        String [] opciones = {"op0", "op1", "op2"}; JSpinner spinnerLista = new JSpinner(new SpinnerListModel(opciones)); add(spinnerLista);//similar al combobox
+        JSpinner spinnerNumber = new JSpinner(new SpinnerNumberModel(5, 0, 10, 1)); add(spinnerNumber);//mas especifico para numeros (por defecto, minimo, maximo, salto)
     }
     private class EscuchaTexto implements DocumentListener{//clase de escucha de eventos preparada para cuadros de texto
         public void insertUpdate(DocumentEvent e){//cuando se inserta texto
@@ -64,17 +86,22 @@ class LaminaComponentes extends JPanel{
         public void actionPerformed(ActionEvent e) {//evento para cualquier accion de cambio de estado/activacion de componente
             System.out.println("se ha cambiado el estado o se ha accionado");
         }
-
+    }
+    private class EscuchaSlider implements ChangeListener{//clase de escucha para cuando cambie el valor del slider
+        public void stateChanged(ChangeEvent e) {
+            System.out.println("cambio el valor del slider");
+        }
     }
 }
 
-
-
 class VentanaComponentes extends JFrame{
     public VentanaComponentes(){
-        add(new LaminaComponentes());
+        setLayout(new BorderLayout(10, 10));
+        add(new LaminaMenu(), BorderLayout.NORTH);
+        add(new LaminaComponentes(), BorderLayout.CENTER);
         setBounds(100, 100, 700, 700);
         setVisible(true);
+        
     }
 }
 public class Componentes {

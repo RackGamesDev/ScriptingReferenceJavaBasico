@@ -121,5 +121,13 @@ public class Clases {//clase principal del paquete (el orden de declaracion de l
         OtroObjeto obj3 = new OtroObjeto("nombre");//usando el otro constructor
 
         Plantilla objmmm = new DePlantilla("asdf");//creando un objeto de clase abstarcta desde un new con clase heredada de esta
+
+
+        Objeto textoModificado = new Objeto(){//crear unaclase anonima, es usar una clase pero hacerle modificaciones
+            public void reportar(){//las modificaciones
+                super.Reportar();
+                System.out.println("nuevo codigo");
+            }
+        };
     }
 }
