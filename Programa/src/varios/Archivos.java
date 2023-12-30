@@ -1,6 +1,7 @@
 package varios;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class Archivos {
     public static void main(String[] args) {
@@ -23,7 +24,51 @@ public class Archivos {
             System.out.println(objCargado.nombre);
         } catch (Exception e){System.out.println(e.getMessage());}
     }
+
+
+
+
+
+
+    public static boolean Borrar(String nombre) throws Exception{//borra un archivo, devuelve false si no existe o falla
+        File obj = new File(nombre);
+        return obj.delete();
+    }
+    public static boolean ArchivoExiste(String nombre) throws Exception{//true si el archivo existe
+        try{
+            File obj = new File(nombre);
+            return obj.exists();
+        } catch (Exception e){
+            return false;
+        }
+    }
+    public static void GuardarTexto(String archivo, String contenido) throws Exception{//guardar texto en un archivo
+        if(!ArchivoExiste(archivo)){
+            File obj = new File(archivo);
+            obj.createNewFile();
+        }
+        FileWriter writer = new FileWriter(archivo);
+        writer.write(contenido);
+        writer.close();
+    }
+    public static String CargarTexto(String archivo) throws Exception{//cargar texto de un archivo
+        if(ArchivoExiste(archivo)){
+            File obj = new File(archivo);
+            Scanner reader = new Scanner(obj);
+            String contenido = "";
+            while(reader.hasNextLine()){
+                contenido+=reader.nextLine() + "\n";
+            }
+            reader.close();
+            return contenido;
+        } else {
+            return "";
+        }
+    }
 }
+
+
+
 
 class ObjetoGuardar implements Serializable{//el objeto a guardar (una estancia de una clase)
     public String nombre;
