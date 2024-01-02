@@ -33,6 +33,7 @@ class LaminaComponentes extends JPanel{
         JTextArea areaTexto = new JTextArea(10,2);//igual que jtextfield pero multilinea (letras, columnas)
         areaTexto.setLineWrap(false);//quiere decir que si el texto no cabe se pondra abajo (si no, el ancho se autoagrandara)
         areaTexto.append("asdfasfd");//agrega texto al final (concatenacion simple)
+        JTextPane panelTexto = new JTextPane(); add(panelTexto);//como el textarea pero sin bordes, debe ser el unico elemento en su panel o agregarse al frame
 
         JScrollPane laminaBarras = new JScrollPane(areaTexto);//poniendo barras de scroll a un componente
         add(laminaBarras);//en lugar de poner el componente se pone solo la lamina

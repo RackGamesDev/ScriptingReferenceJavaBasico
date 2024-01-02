@@ -60,6 +60,7 @@ class LaminaDibujo extends JPanel{//es un panel que puede servir para pintar com
         Font fuente = new Font("Arial", Font.BOLD, 26);//guarda una fuente apartir de un nombre (debe estar instalada)
         g2.setFont(fuente);//selecciona esa fuente
         g2.drawString("fuente", 60, 60);
+        
 
         try{imagen = ImageIO.read(new File("media/icono.png"));}//pone el contenido de la imagen en la variable
         catch(IOException e){System.out.println("error");}
