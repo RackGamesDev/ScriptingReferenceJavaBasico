@@ -11,11 +11,22 @@ class LaminaMenu extends JPanel{
         JMenuBar barraSuperior = new JMenuBar(); add(barraSuperior);//soporte para la barra de menu superior (se debe agregar antes que el resto de componentes para que aparezca arriba)
         JMenu archivoM = new JMenu("archivo"); JMenu editarM = new JMenu("editar");//cada menu
         barraSuperior.add(archivoM); barraSuperior.add(editarM);//agregando los menus a la barra
-        JMenuItem guardarMI = new JMenuItem("guardar"); JMenuItem abrirMI = new JMenuItem("abrir"); JMenuItem borrarMI = new JMenuItem("borrar"); JMenuItem agregarMI = new JMenuItem("agregar");//cada opcion de los menus
+        JMenuItem guardarMI = new JMenuItem("guardar"); JMenuItem abrirMI = new JMenuItem("abrir", new ImageIcon("media/icono.png")); JMenuItem borrarMI = new JMenuItem("borrar"); JMenuItem agregarMI = new JMenuItem("agregar");//cada opcion de los menus (se pueden poner iconos)
+        JCheckBoxMenuItem opcionCheck = new JCheckBoxMenuItem("siono"); archivoM.add(opcionCheck);//un menuitem con un checkbox, funciona igual que el menuitem y el checkbox
+        JRadioButtonMenuItem radioCheck = new JRadioButtonMenuItem("este"); archivoM.add(radioCheck);//un menuitem con un radio, funciona igual que el menuitem y el radio asi que necesitaria estar en un ButtonGroup
         archivoM.add(guardarMI); archivoM.add(abrirMI); editarM.add(borrarMI); editarM.add(agregarMI);//agregar las opciones a los menus
-        JMenuItem subopcion1 = new JMenuItem("sub1"); JMenuItem subopcion2 = new JMenuItem("sub2"); JMenu subopciones = new JMenu();
+        guardarMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK));//agregar un atajo de teclado, tecla + modificador (ctrl, alt, shift)
+        JMenuItem subopcion1 = new JMenuItem("sub1"); JMenuItem subopcion2 = new JMenuItem("sub2"); JMenu subopciones = new JMenu();//poner iconos
         subopciones.add(subopcion1); subopciones.add(subopcion2); agregarMI.add(subopciones);//agregar subopciones a opciones normales
         archivoM.addSeparator();//pone un separador
+    }
+}
+class LaminaClickDerecho extends JPanel{//lamina que contiene los elementos del panel de click derecho, esto podria ser cualquier otro componente y no necesariamente una lamina
+    public LaminaClickDerecho(){
+        JPopupMenu emergente = new JPopupMenu();//menu del click derecho
+        JMenuItem op1 = new JMenuItem("op1"); JMenuItem op2 = new JMenuItem("op2");//funciona igual que el JMenu, con items
+        emergente.add(op1); emergente.add(op2);//agregar los items/opciones
+        setComponentPopupMenu(emergente);//agrega el jpopupmenu a si mismo, se deberia agnadir a un componente
     }
 }
 class LaminaComponentes extends JPanel{
