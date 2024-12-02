@@ -9,6 +9,6 @@ public class TemporizadorSimple {
                 System.out.println("mensaje ocurrido en " + new Date());
             }
         };
-        temporizador.schedule(tarea, 0, 1000);//iniciar el temporizador (funcion run(), cuanto tarda en empezar, cada cuanto se ejecuta (0 para solo una vez))
+        temporizador.schedule(tarea, 0, 1000);//Iniciar el temporizador (funcion run(), cuanto tarda en empezar, cada cuanto se ejecuta (0 para solo una vez))
     }
 }
