@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
 
-//una manera de hacerlo todo super compacto
+//Una manera de hacerlo todo super compacto
 public class EventoCompacto {
     private static class VentanaCompacta extends JFrame{
         public VentanaCompacta(){
