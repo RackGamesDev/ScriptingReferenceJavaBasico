@@ -5,22 +5,22 @@ import java.util.Scanner;
 
 public class Archivos {
     public static void main(String[] args) {
-        ObjetoGuardar obj1 = new ObjetoGuardar("asdf", 34);//instancia a guardar
+        ObjetoGuardar obj1 = new ObjetoGuardar("asdf", 34);//Instancia a guardar
 
-        //guardar:
-        final String nombreAchivo = "DATOS.bin";//el archivo es .bin
+        //Guardar:
+        final String nombreAchivo = "DATOS.bin";//El archivo es .bin
         try{
             OutputStream os = new FileOutputStream(nombreAchivo);
             ObjectOutputStream oos = new ObjectOutputStream(os);
-            oos.writeObject(obj1);//guardar una instancia en el archivo
+            oos.writeObject(obj1);//Guardar una instancia en el archivo
             oos.close();
         } catch (Exception e){System.out.println(e.getMessage());}
 
-        //cargar:
+        //Cargar:
         try{
             InputStream is = new FileInputStream(nombreAchivo);
             ObjectInputStream ois = new ObjectInputStream(is);
-            ObjetoGuardar objCargado = (ObjetoGuardar) ois.readObject();//devuelve el objeto guardado
+            ObjetoGuardar objCargado = (ObjetoGuardar) ois.readObject();//Devuelve el objeto guardado
             System.out.println(objCargado.nombre);
         } catch (Exception e){System.out.println(e.getMessage());}
     }
@@ -30,7 +30,7 @@ public class Archivos {
 
 
 
-    public static boolean Borrar(String nombre) throws Exception{//borra un archivo, devuelve false si no existe o falla
+    public static boolean Borrar(String nombre) throws Exception{//Borra un archivo, devuelve false si no existe o falla
         File obj = new File(nombre);
         return obj.delete();
     }
@@ -42,7 +42,7 @@ public class Archivos {
             return false;
         }
     }
-    public static void GuardarTexto(String archivo, String contenido) throws Exception{//guardar texto en un archivo
+    public static void GuardarTexto(String archivo, String contenido) throws Exception{//Guardar texto en un archivo
         if(!ArchivoExiste(archivo)){
             File obj = new File(archivo);
             obj.createNewFile();
@@ -51,7 +51,7 @@ public class Archivos {
         writer.write(contenido);
         writer.close();
     }
-    public static String CargarTexto(String archivo) throws Exception{//cargar texto de un archivo
+    public static String CargarTexto(String archivo) throws Exception{//Cargar texto de un archivo
         if(ArchivoExiste(archivo)){
             File obj = new File(archivo);
             Scanner reader = new Scanner(obj);
@@ -70,7 +70,7 @@ public class Archivos {
 
 
 
-class ObjetoGuardar implements Serializable{//el objeto a guardar (una estancia de una clase)
+class ObjetoGuardar implements Serializable{//El objeto a guardar (una estancia de una clase)
     public String nombre;
     public int tamagno;
     public ObjetoGuardar(String _nombre, int _tamagno){
