@@ -3,17 +3,14 @@ import java.awt.*;
 
 class PanelLayouts extends JPanel{
     public PanelLayouts(){
-        setLayout(new FlowLayout(FlowLayout.LEFT, 2,2));//el layout indica como se pondran los elementos automaticamente (alineacion, separacionx, separaciony)
-        setLayout(new BorderLayout(10, 10));//este se basa en los puntos cardinales (separacionx, separaciony)
-        add(new JButton("boton a"), BorderLayout.SOUTH);//si esta hecho con BorderLayout se especifica donde sale
-        setLayout(new GridLayout(4,4));//un layout para cuadriculas (se ordenan de arriba a abajo y luego a la derecha)
+        setLayout(new FlowLayout(FlowLayout.LEFT, 2,2));//El layout indica como se pondran los elementos automaticamente (alineacion, separacionx, separaciony)
+        setLayout(new BorderLayout(10, 10));//Este se basa en los puntos cardinales (separacionx, separaciony)
+        add(new JButton("boton a"), BorderLayout.SOUTH);//Si esta hecho con BorderLayout se especifica donde sale
+        setLayout(new GridLayout(4,4));//Un layout para cuadriculas (se ordenan de arriba a abajo y luego a la derecha)
         add(new JButton("boton b"));
         add(new JButton("boton c"));
     }
 }
-
-
-
 
 
 
@@ -22,7 +19,7 @@ class VentanaLayouts extends JFrame{
         setBounds(600,350,600,300);
         PanelLayouts lamina = new PanelLayouts(); 
         add(lamina);
-        pack();//en caso de sobrar espacio, la ventana se redimensiona a menos
+        pack();//En caso de sobrar espacio, la ventana se redimensiona a menos
         setVisible(true);
     }
 }
