@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import otropaquete.ClaseLejos;
 
-public class ElPrograma{//programa simple que usa paquetes y otras cosas
+public class ElPrograma{//Programa simple que usa paquetes y otras cosas
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in); String txt = entrada.nextLine(); entrada.close();
         System.out.println(txt);
@@ -22,9 +22,9 @@ class MultieventoVentana extends JFrame{
         setVisible(true);
     }
 }
-//para compilar a .jar hace falta hacer el manifest.txt junto al script principal
+//Para compilar a .jar hace falta hacer el manifest.txt junto al script principal
 //windows: agregar variable de entorno al sistema con la ruta del compilador (en el array de path) "C:\Program Files\Java\jdk-21\bin" (cambiando la version)
-//usar el comando "jar cvfm ElPrograma.jar src/manifest.txt bin/*" en la raiz del proyecto (con cmd, no con powershell)
-//alternativamente se puede usar el boton de abajo a la izquierda en visual studio (para eso hay que hacer la carpeta .settings)
+//Usar el comando "jar cvfm ElPrograma.jar src/manifest.txt bin/*" en la raiz del proyecto (con cmd, no con powershell)
+//Alternativamente se puede usar el boton de abajo a la izquierda en visual studio (para eso hay que hacer la carpeta .settings)
 
-//para compilar a .exe se transforma el .jar a .exe con launch4j
+//Para compilar a .exe se transforma el .jar a .exe con launch4j
